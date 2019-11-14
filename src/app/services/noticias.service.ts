@@ -13,7 +13,9 @@ const headers = new HttpHeaders({
   providedIn: 'root'
 })
 export class NoticiasService {
-  headLinePage = 0;
+  headLinePage: number = 0;
+  categoriaActual: string = '';
+  categoriaPage: number = 0;
   constructor(private http: HttpClient) { }
   //<T> De tipo generico
   private ejecutarQuery<T>(query: string){
@@ -27,6 +29,13 @@ export class NoticiasService {
     //return this.http.get<RespuestaTopHeadlines>(`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${apiKey}`);
   }
   getTopHeadlineCategory(categoria: string){
-    return this.ejecutarQuery<RespuestaTopHeadlines>(`/top-headlines?country=us&category=${categoria}`);
+    if(this.categoriaActual === categoria){
+      this.categoriaPage++;
+    }
+    else{
+      this.categoriaPage = 1;
+      this.categoriaActual = categoria
+    }
+    return this.ejecutarQuery<RespuestaTopHeadlines>(`/top-headlines?country=us&category=${categoria}&page=${this.categoriaPage}`);
   }
 }

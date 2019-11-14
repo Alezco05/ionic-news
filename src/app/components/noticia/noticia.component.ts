@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Article } from 'src/app/interfaces/interfaces';
 
+
 @Component({
   selector: 'app-noticia',
   templateUrl: './noticia.component.html',
@@ -12,5 +13,7 @@ export class NoticiaComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
-
+  abrirNoticia() {
+    console.log(this.noticia.url)
+  }
 }
